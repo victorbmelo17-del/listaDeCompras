@@ -1,0 +1,131 @@
+<!-- ====================================================================
+  LISTA DE COMPRAS - Aplicativo Web com HTML, CSS e JavaScript
+  Tecnologias: HTML5, CSS3 (Grid, Flexbox), JavaScript vanilla
+  Armazenamento: localStorage (dados salvos no navegador)
+  ==================================================================== -->
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <!-- Meta tags: configurações básicas do documento -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lista de Compras Premium</title>
+  
+  <!-- Link para o arquivo CSS externo (estilos visuais) -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Import da fonte Poppins do Google Fonts para melhor tipografia -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Container principal: contém toda a aplicação -->
+  <div class="container">
+    
+    <!-- ===== HEADER / CABEÇALHO ===== -->
+    <div class="header">
+      <div class="header-top">
+        <!-- Título principal com ícone -->
+        <h1>🛒 Minha Lista de Compras</h1>
+        
+        <!-- RESUMO ESTATÍSTICO: mostra dados em tempo real -->
+        <div class="stat-badge" id="summary">
+          <!-- Total de itens adicionados -->
+          <span class="stat"><strong id="tc">0</strong> itens</span>
+          
+          <!-- Quantidade de itens já comprados -->
+          <span class="stat checked"><strong id="bc">0</strong> comprados</span>
+          
+          <!-- Custo total estimado (soma de preço × quantidade) -->
+          <span class="stat price">Total: <strong>R$ <span id="cost">0.00</span></strong></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== GUIA RÁPIDO ===== -->
+    <!-- Caixa informativa com os 3 passos principais de uso -->
+    <div class="guide-box">
+      <div class="guide-header">📋 Guia Rápido</div>
+      <div class="guide-content">
+        <!-- Passo 1: Organização por categorias -->
+        <div class="guide-step"><span class="step-num">1</span> <span>Organize por categorias</span></div>
+        
+        <!-- Passo 2: Preenchimento de dados -->
+        <div class="guide-step"><span class="step-num">2</span> <span>Adicione nome, qtd e preço</span></div>
+        
+        <!-- Passo 3: Exportação e conclusão -->
+        <div class="guide-step"><span class="step-num">3</span> <span>Marque e exporte</span></div>
+      </div>
+    </div>
+
+    <!-- ===== FORMULÁRIO PARA ADICIONAR ITENS ===== -->
+    <!-- Form moderno com 5 campos de entrada -->
+    <form id="add-form" class="form-modern">
+      <!-- Campo 1: Nome do produto (obrigatório) -->
+      <input id="item" placeholder="Nome do produto..." required autocomplete="off">
+      
+      <!-- Campo 2: Categoria (dropdown com 4 opções pré-definidas) -->
+      <select id="cat">
+        <option value="">Categoria</option>
+        <option>Alimentos</option>
+        <option>Limpeza</option>
+        <option>Higiene</option>
+        <option>Outros</option>
+      </select>
+      
+      <!-- Campo 3: Quantidade (número inteiro mínimo 1) -->
+      <input id="qty" type="number" min="1" placeholder="Qtd">
+      
+      <!-- Campo 4: Preço unitário (número com 2 casas decimais) -->
+      <input id="price" type="number" step="0.01" min="0" placeholder="R$">
+      
+      <!-- Botão para submit (envia o formulário) -->
+      <button type="submit" class="btn-primary">+ Adicionar</button>
+    </form>
+
+    <!-- ===== BARRA DE FERRAMENTAS ===== -->
+    <!-- Controles para pesquisar, filtrar e ordenar a lista -->
+    <div class="toolbar">
+      
+      <!-- Campo de busca: filtra itens por nome ou categoria -->
+      <div class="search-box">
+        <input id="search" placeholder="Buscar produto...">
+      </div>
+      
+      <!-- Dropdown: filtrar por categoria específica -->
+      <select id="filter" class="select-refined">
+        <option value="">Todas categorias</option>
+        <option>Alimentos</option>
+        <option>Limpeza</option>
+        <option>Higiene</option>
+        <option>Outros</option>
+      </select>
+      
+      <!-- Dropdown: ordenar itens (por nome ou preço) -->
+      <select id="sort" class="select-refined">
+        <option value="">Ordenar por</option>
+        <option value="name">Nome A-Z</option>
+        <option value="price">Menor preço</option>
+      </select>
+      
+      <!-- Botão Exportar: salva a lista em arquivo JSON -->
+      <button id="export" class="btn-secondary">📥 Exportar</button>
+      
+      <!-- Botão Limpar: remove todos os itens -->
+      <button id="clear" class="btn-secondary danger">🗑️ Limpar</button>
+      
+      <!-- Input file oculto: usado para importar arquivo JSON -->
+      <input type="file" id="file" accept="application/json" style="display:none">
+    </div>
+
+    <!-- ===== LISTA DE COMPRAS ===== -->
+    <!-- Elemento UL (unordered list) que será preenchido dinamicamente com JavaScript -->
+    <ul id="list" class="list-modern"></ul>
+    
+  </div>
+
+  <!-- ===== SCRIPT JAVASCRIPT ===== -->
+  <!-- Arquivo externo com toda a lógica da aplicação -->
+  <script src="app.js"></script>
+</body>
+</html>
